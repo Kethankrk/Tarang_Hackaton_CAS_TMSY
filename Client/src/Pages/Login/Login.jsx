@@ -1,12 +1,14 @@
 import React from 'react';
+import Logo from "../../assets/traveller-Logo.svg"
 
 const Login = () => {
     return (
-        <div className='flex w-full  justify-between h-screen items-center'>
-            <div className="">
-                <h1>Triptails</h1>
+        <div className='grid grid-cols-2 w-full'>
+            <div className="col-span-1 flex justify-center items-center p-14 ">
+                <img src={Logo} alt="" srcset="" />
             </div>
-            <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-50 text-gray-800">
+           <div className="col-span-1 flex justify-center w-full h-screen items-center bg-[#6C63FF]">
+           <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-50 text-gray-800 ">
 	<div className="mb-8 text-center">
 		<h1 className="my-3 text-4xl font-bold">Sign in</h1>
 		<p className="text-sm text-gray-600">Sign in to access your account</p>
@@ -36,6 +38,7 @@ const Login = () => {
 	</form>
     </div>
         
+           </div>
         </div>
     );
 }
