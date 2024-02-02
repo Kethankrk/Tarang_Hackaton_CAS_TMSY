@@ -28,5 +28,4 @@ router.post('/home',(req,res)=>{
     console.log('home page reached[POST]')
 })
 
-
 module.exports=router
