@@ -4,7 +4,7 @@ const Database=require('./models/Model')
 router.post('/signup',async(req,res)=>{
     console.log('signup page reached[POST]')
     const Database_signup=await Database.findOne({email:req.body.email})
-    if(!Databse_signup){
+    if(!Database_signup){
         await Database.insertMany([req.body])
         res.json({status:true})
     }else{
@@ -22,10 +22,6 @@ router.post('/login',async(req,res)=>{
     }else{
         res.json({status:false})
     }
-})
-
-router.post('/home',(req,res)=>{
-    console.log('home page reached[POST]')
 })
 
 module.exports=router

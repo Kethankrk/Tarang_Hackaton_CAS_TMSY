@@ -18,23 +18,26 @@ const clientSchema = new mongoose.Schema({
   },
   phone: {
     type: Number,
-    required: true,
     unique: true,
   },
   idProof: {
     type: String,
+    required: true,
   },
 });
 
 const guideSchema = new mongoose.Schema({
   email: {
     type: String,
+    required: true,
   },
   password: {
     type: String,
+    required: true,
   },
   img: {
     type: String,
+    unique: true,
   },
   address: {
     type: String,
@@ -47,16 +50,29 @@ const guideSchema = new mongoose.Schema({
     type: Boolean,
   },
   vehicles: {
-    type: [String],
+    type: [vehicleSchema],
   },
   idProof: {
     type: String,
+    required: true
   },
 });
+
+const vehicleSchema = new mongoose.Schema({
+    name:{
+        type: String
+    },
+    seat:{
+        type: Number
+    },
+    class:{
+        type: String
+    }
+})
 
 const Client = mongoose.model("client", clientSchema);
 const Guide = mongoose.model("guide", guideSchema);
 module.exports = {
   Client,
   Guide,
-};
+}
