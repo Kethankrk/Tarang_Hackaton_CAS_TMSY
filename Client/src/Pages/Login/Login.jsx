@@ -7,23 +7,29 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const HandleLogin = async (e) => {
-    e.preventDefault();
-    if (!email || !password) return;
-    const data = {
-      email,
-      password,
-    };
-    const res = await axios.post("http://localhost:3000/client/login", data);
-    if (res.status !== 200) {
-      alert(res.data);
+    try {
+      e.preventDefault();
+      if (!email || !password) return;
+      const data = {
+        email,
+        password,
+      };
+      const res = await axios.post("http://localhost:3000/client/login", data);
+      if (res.status != 200) {
+        alert(res.data);
+        return;
+      }
+      console.log(res.data);
+      const user = res.data.data;
+      const type = res.data.type;
+      localStorage.setItem("type", type);
+      localStorage.setItem("email", user.email);
+      localStorage.setItem("name", user.name);
+    } catch (error) {
+      console.log(error.name);
+      alert("Login failed");
       return;
     }
-
-    const user = res.data.data;
-    const type = res.data.type;
-    localStorage.setItem("type", type);
-    localStorage.setItem("email", user.email);
-    localStorage.setItem("name", user.name);
   };
 
   return (
@@ -41,12 +47,7 @@ const Login = () => {
               Sign in to access your account
             </p>
           </div>
-          <form
-            novalidate=""
-            action=""
-            className="space-y-12"
-            onSubmit={HandleLogin}
-          >
+          <form className="space-y-12" onSubmit={HandleLogin}>
             <div className="space-y-4">
               <div>
                 <label for="email" className="block mb-2 text-sm">
@@ -89,7 +90,7 @@ const Login = () => {
             <div className="space-y-2">
               <div>
                 <button
-                  type="button"
+                  type="submit"
                   className="w-full px-8 py-3 font-semibold rounded-md bg-violet-600 text-gray-50"
                 >
                   Sign in
