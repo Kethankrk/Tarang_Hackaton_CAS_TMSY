@@ -248,7 +248,7 @@ const SignUp = () => {
               Do you have an account already?
               <a
                 rel="noopener noreferrer"
-                href="#"
+                href="/login  "
                 className="hover:underline text-violet-600"
               >
                 Sign in

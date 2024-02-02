@@ -179,8 +179,9 @@ app.post("/client/get-guide", async (req, res) => {
 
 app.get("/address", async (req, res) => {
   try {
+    const {address} = req.body;
     const guides = await Guide.find({});
-    const addresses = guides.map((user) => user.address);
+    const addresses = guides.filter((user) => user.address == address);
 
     return res.status(200).json({
       status: true,

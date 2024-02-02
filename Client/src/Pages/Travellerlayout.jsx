@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Nav from '../components/Nav';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import LocalGuideView from './Traveller/localGuideView';
 import InduvidualGuide from './Traveller/InduvidualGuide';
 import Details from './Traveller/TravellerDetails';
@@ -10,12 +10,16 @@ import TravellerReqest from './LocalGuide/TravellerReqest';
 
 const Layout = () => {
     const[ isValid, Setvalid] =useState(null)
+    const navigate = useNavigate();
     const [type, settype] = useState("");
     useEffect(() => {
         Setvalid(localStorage.getItem("email"))
         settype(localStorage.getItem("type"))
     }, []);
-    console.log(isValid)
+    
+    if(!isValid){
+        navigate('/login')
+    }
     return (
         <div className='bg-gray-50'>
            <Nav/>
@@ -26,11 +30,8 @@ const Layout = () => {
                 <GuideDetails/>
                 </div>
                 <div className="col-span-5 p-4">
-                   {/* <LocalGuideView/> */}
-                <TravellerReqest/>
+                <Outlet/>
 
-                   {/* <InduvidualGuide/> */}
-                    {/* <Outlet/> */}
                 </div>
               </div>
             ):
@@ -40,9 +41,7 @@ const Layout = () => {
                 <TravellerDetals/>
                 </div>
                 <div className="col-span-5 p-4">
-                   {/* <LocalGuideView/> */}
-                   <InduvidualGuide/>
-                    {/* <Outlet/> */}
+                  <Outlet/>
                 </div>
               </div>
             }

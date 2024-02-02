@@ -5,10 +5,13 @@ const TravellerReqest = () => {
     const [request , setaddressRequest ] =useState("")
     const [email,setemail] = useState('')
     useEffect(() => {
+
+        const test = localStorage.getItem("email")
         setemail(localStorage.getItem("email"))
-        axios.post("http://localhost:3000/guide/get-req",{email}).then(
+        console.log(test)
+        axios.post("http://localhost:3000/guide/get-req",{email:test}).then(
             res=>{
-                console.log(res.data.data)
+                request(res.data.data)
             }
         )
     }, []);
