@@ -85,14 +85,18 @@ app.post("/client/login", async (req, res) => {
       });
     }
 
-    const user = await Client.findOne({ email });
+    const client = await Client.findOne({ email });
+    const guide = await Guide.findOne({ email });
 
-    if (!user) {
+    if (!client && !guide) {
       return res.status(404).json({
         status: false,
         error: "User Not found",
       });
     }
+
+    const user = client ? client : guide;
+    const type = client ? "client" : "guide";
 
     if (password != user.password) {
       return res.status(400).json({
@@ -103,6 +107,8 @@ app.post("/client/login", async (req, res) => {
 
     return res.status(200).json({
       status: true,
+      data: user,
+      type,
     });
   } catch (e) {
     console.log(e);
