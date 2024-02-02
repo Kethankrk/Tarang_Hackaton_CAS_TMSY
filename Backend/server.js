@@ -2,10 +2,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const { Client, Guide } = require("./models/Model");
+const guideRoute = require("./guide/pageRouter");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use("/guide", guideRoute);
 
 mongoose
   .connect(
