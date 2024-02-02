@@ -5,7 +5,7 @@ const TravellerDetals = () => {
     const [SelectOption, Setselect] = useState()
 
 
-    const [options, SetOPtions] = useState("");
+    const [options, SetOPtions] = useState([]);
     useEffect(() => {
         axios.get("http://localhost:3000/address").then(
             res=>{

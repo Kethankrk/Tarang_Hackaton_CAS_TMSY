@@ -1,6 +1,17 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 const TravellerReqest = () => {
+    const [request , setaddressRequest ] =useState("")
+    const [email,setemail] = useState('')
+    useEffect(() => {
+        setemail(localStorage.getItem("email"))
+        axios.post("http://localhost:3000/guide/get-req",{email}).then(
+            res=>{
+                console.log(res.data.data)
+            }
+        )
+    }, []);
     return (
         <>
           <h1 className='font-bold text-xl
