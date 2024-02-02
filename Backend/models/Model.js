@@ -56,9 +56,11 @@ const guideSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+  },
   img: {
     type: String,
-    unique: true,
   },
   address: {
     type: String,

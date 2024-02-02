@@ -1,38 +1,77 @@
-const router=require('express').Router()
-const {Guide, Client} =require('../models/Model')
+const router = require("express").Router();
+const { Client, Guide } = require("../models/Model");
 
-router.post('/signup',async(req,res)=>{
-    console.log('signup page reached[POST]')
-    const Guide_signup=await Guide.findOne({email:req.body.email})
-    if(!Guide_signup){
-        await Guide.insertMany([req.body])
-        res.json({status:true})
-    }else{
-        res.json({status:false})
+router.post("/signup", async (req, res) => {
+  console.log("signup page reached[POST]");
+
+  try {
+    console.log(req.body);
+    let { email, name, password, userImage, address, phone, idProof } = req.body;
+    if (
+      !email ||
+      !password ||
+      !userImage ||
+      !address ||
+      !phone ||
+      !idProof ||
+      !name
+    ) {
+      return res.status(400).send({
+        status: "failure",
+        error: "Some fields are empty",
+      });
     }
-})
 
-router.post('/login',async(req,res)=>{
-    console.log('login page reached[POST]')
-    const Guide_login=await Guide.findOne({email:req.body.email})
-    if(login==null){
-        res.json({status:false})
-    }else if(req.body.password===Guide_login.password){
-        res.json({status:true})
-    }else{
-        res.json({status:false})
+    let existingUser = await Guide.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({
+        status: "failure",
+        error: "User with this email already exists.",
+      });
     }
-})
+    address = address.trim().toLowerCase();
+    let newGuide = new Guide({
+      email,
+      address,
+      idProof,
+      img: userImage,
+      phone,
+      password,
+      name,
+    });
 
-router.post('/setVehicle', async(req, res)=>{
-    console.log("setVehicle page reached[POST")
-    const {email, vehicles}=req.body
-    const Guide_setVehicle=await Guide.findOne({email})
-    if(Guide_setVehicle){
-        await Guide.insertMany({vehicles})
-    }else{
-        throw new Error('No guide found with given email')
-    }
-})
+    await newGuide.save();
+    console.log("returning success")
+    return res.status(200).json({
+      status: "success",
+    });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ error: e.name });
+  }
+});
 
-module.exports=router
+router.post("/login", async (req, res) => {
+  console.log("login page reached[POST]");
+  const Guide_login = await Guide.findOne({ email: req.body.email });
+  if (login == null) {
+    res.json({ status: false });
+  } else if (req.body.password === Guide_login.password) {
+    res.json({ status: true });
+  } else {
+    res.json({ status: false });
+  }
+});
+
+router.post("/setVehicle", async (req, res) => {
+  console.log("setVehicle page reached[POST");
+  const { email, vehicles } = req.body;
+  const Guide_setVehicle = await Guide.findOne({ email });
+  if (Guide_setVehicle) {
+    await Guide.insertMany({ vehicles });
+  } else {
+    throw new Error("No guide found with given email");
+  }
+});
+
+module.exports = router;

@@ -5,7 +5,14 @@ const { Client, Guide } = require("./models/Model");
 const guideRoute = require("./guide/pageRouter");
 
 const app = express();
-app.use(cors());
+
+const corsOptions = {
+  origin: '*', // Replace with your front-end URL or use '*' for any origin
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // Enable credentials (e.g., cookies, authorization headers)
+  optionsSuccessStatus: 204, // Respond with a 204 status for preflight requests
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/guide", guideRoute);
 
@@ -24,7 +31,7 @@ app.get("/", (req, res) => {
 app.post("/client/singup", async (req, res) => {
   try {
     console.log(req.body);
-    const { email, name, password, userImage, address, phone, idProof } =
+    let { email, name, password, userImage, address, phone, idProof } =
       req.body;
     if (
       !email ||
