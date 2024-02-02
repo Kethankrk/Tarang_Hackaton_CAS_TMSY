@@ -3,11 +3,13 @@ import Logo from "../../assets/traveller-Logo.svg"
 
 const Login = () => {
     return (
-        <div className='grid grid-cols-2 w-full'>
-            <div className="col-span-1 flex justify-center items-center p-14 ">
-                <img src={Logo} alt="" srcset="" />
+        <div className='grid grid-cols-2 w-full bg-signinImage'>
+            <div className="col-span-1 flex justify-center items-end pt-14 px-14 ">
+                <div className="bg-white bg-opacity-5 backdrop-blur-lg rounded drop-shadow-lg pt-44 ">
+				<img src={Logo} alt="" srcset="" />
+				</div>
             </div>
-           <div className="col-span-1 flex justify-center w-full h-screen items-center bg-[#6C63FF]">
+           <div className="col-span-1 flex justify-center w-full h-screen items-center bg-[#6C63FF] rounded-l-2xl">
            <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-50 text-gray-800 ">
 	<div className="mb-8 text-center">
 		<h1 className="my-3 text-4xl font-bold">Sign in</h1>
