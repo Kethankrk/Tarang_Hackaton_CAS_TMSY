@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Logo from "../../assets/traveller-Logo.svg";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
   const HandleLogin = async (e) => {
     try {
@@ -25,6 +27,7 @@ const Login = () => {
       localStorage.setItem("type", type);
       localStorage.setItem("email", user.email);
       localStorage.setItem("name", user.name);
+      navigate('/')
     } catch (error) {
       console.log(error.name);
       alert("Login failed");
@@ -100,7 +103,7 @@ const Login = () => {
                 Don't have an account yet?
                 <a
                   rel="noopener noreferrer"
-                  href="#"
+                  href="/signup"
                   className="hover:underline text-violet-600"
                 >
                   Sign up

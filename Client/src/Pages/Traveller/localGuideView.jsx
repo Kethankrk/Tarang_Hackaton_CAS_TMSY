@@ -1,6 +1,31 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LocalGuideView = () => {
+    const navigate = useNavigate()
+    const [email,setemail] = useState()
+    const [user, setuser] = useState()
+    useEffect(() => {
+        const add = localStorage.getItem("curloc")
+        console.log(add)
+
+
+        axios.post("http://localhost:3000/address",{add}).then(
+            res=>{
+                console.log(res.data.data
+                    )
+                    setuser(res.data.data)
+            }
+        )
+        
+        setemail(localStorage.getItem("type"))
+
+    }, []);
+    if(email == "guide"){
+        navigate("/req")
+    }
+
     return (
        <>
         <h1 className='font-bold text-xl
@@ -11,7 +36,7 @@ const LocalGuideView = () => {
                                 <img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" alt=""
                                 className='h-20 rounded-full' />
                                 <div className="flex flex-col ">
-                                    <h1 className='font-semibold text-xl'>Name</h1>
+                                    <h1 className='font-semibold text-xl'></h1>
                                     <h1>number</h1>
                                     <h1>place</h1>
                                 </div>
