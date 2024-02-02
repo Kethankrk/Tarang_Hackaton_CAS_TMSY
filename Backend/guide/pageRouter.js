@@ -75,9 +75,12 @@ router.post("/set-vehicle", async (req, res) => {
       error: "No guide found with given email",
     });
   }
-
-  const guide = await Guide.updateOne({ email }, { vehicles });
-
+  console.log(vehicles)
+  const guide = await Guide.updateOne(
+    { email },
+    { $push: { vehicles: vehicles } }
+  );
+  console.log(guide);
   return res.status(200).json({ status: true, guide });
 });
 
@@ -102,6 +105,8 @@ router.post("/add-req", async (req, res) => {
       { email: guideEmail },
       { $push: { request } }
     );
+
+    return res.status(200).json({ status: true });
   } catch (error) {
     console.log(e);
     return res.status(500).json({ error: e.name });

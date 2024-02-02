@@ -24,7 +24,7 @@ const requestSchema = new mongoose.Schema({
   },
   destination: {
     type: String,
-  }
+  },
 });
 
 const clientSchema = new mongoose.Schema({
@@ -32,6 +32,10 @@ const clientSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+  },
+  name: {
+    type: String,
+    default: "lolan",
   },
   password: {
     type: String,
