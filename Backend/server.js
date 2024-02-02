@@ -71,7 +71,7 @@ app.post("/client/signup", async (req, res) => {
     });
   } catch (e) {
     console.log(e);
-    return res.status(500).json({ error: e.name });
+    return res.status(500).json({ error: error.name });
   }
 });
 
@@ -106,7 +106,7 @@ app.post("/client/login", async (req, res) => {
     });
   } catch (e) {
     console.log(e);
-    return res.status(500).json({ error: e.name });
+    return res.status(500).json({ error: error.name });
   }
 });
 
@@ -129,7 +129,7 @@ app.post("/client/guide-location", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: e.name });
+    return res.status(500).json({ error: error.name });
   }
 });
 
@@ -147,7 +147,7 @@ app.post("/client/get", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: e.name });
+    return res.status(500).json({ error: error.name });
   }
 });
 
@@ -167,7 +167,23 @@ app.post("/client/get-guide", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: e.name });
+    return res.status(500).json({ error: error.name });
   }
 });
+
+app.get("/address", async (req, res) => {
+  try {
+    const guides = await Guide.find({});
+    const addresses = guides.map((user) => user.address);
+
+    return res.status(200).json({
+      status: true,
+      data: addresses,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: error.name });
+  }
+});
+
 app.listen(3000, () => console.log("Running server on http://localhost:3000"));
