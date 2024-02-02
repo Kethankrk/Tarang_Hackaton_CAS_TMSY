@@ -28,11 +28,11 @@ const TravellerDetals = () => {
             <div className="flex flex-col bg-white rounded-3xl shadow-md px-9 py-3  border-r-4 border-blue-500 gap-3">
             <div>
 				<label for="Name" className="block mb-2  text-lg font-semibold  ">Current location</label>
-				<Select className='w-96'
-        value={SelectOption}
-        onChange={Setselect}
-        options={options}
-      />    
+				<select>
+                    {options.map(e=>(
+                        <option value={e}>{e}</option>
+                    ))}
+                </select>
      
       
 			</div>
