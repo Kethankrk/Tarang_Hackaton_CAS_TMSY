@@ -102,6 +102,8 @@ router.post("/add-req", async (req, res) => {
       { email: guideEmail },
       { $push: { request } }
     );
+
+    return res.status(200).json({ status: true });
   } catch (error) {
     console.log(e);
     return res.status(500).json({ error: e.name });
