@@ -6,7 +6,8 @@ router.post("/signup", async (req, res) => {
 
   try {
     console.log(req.body);
-    let { email, name, password, userImage, address, phone, idProof } = req.body;
+    let { email, name, password, userImage, address, phone, idProof } =
+      req.body;
     if (
       !email ||
       !password ||
@@ -41,7 +42,7 @@ router.post("/signup", async (req, res) => {
     });
 
     await newGuide.save();
-    console.log("returning success")
+    console.log("returning success");
     return res.status(200).json({
       status: "success",
     });
@@ -63,15 +64,21 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/setVehicle", async (req, res) => {
+router.post("/set-vehicle", async (req, res) => {
   console.log("setVehicle page reached[POST");
   const { email, vehicles } = req.body;
   const Guide_setVehicle = await Guide.findOne({ email });
-  if (Guide_setVehicle) {
-    await Guide.insertMany({ vehicles });
-  } else {
-    throw new Error("No guide found with given email");
+
+  if (!Guide_setVehicle) {
+    return res.status(401).json({
+      status: false,
+      error: "No guide found with given email",
+    });
   }
+
+  const guide = await Guide.updateOne({ email }, { vehicles });
+
+  return res.status(200).json({ status: true, guide });
 });
 
 module.exports = router;
