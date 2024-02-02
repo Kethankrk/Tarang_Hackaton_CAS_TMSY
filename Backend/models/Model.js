@@ -52,10 +52,17 @@ const guideSchema = new mongoose.Schema({
   vehicles: {
     type: [vehicleSchema],
   },
+  request:{
+    type: [requestSchema],
+  },
   idProof: {
     type: String,
     required: true
   },
+  isAvailable:{
+    type: Boolean,
+    default: true,
+  }
 });
 
 const vehicleSchema = new mongoose.Schema({
@@ -67,6 +74,15 @@ const vehicleSchema = new mongoose.Schema({
     },
     class:{
         type: String
+    }
+})
+
+const requestSchema = new mongoose.Schema({
+    email:{
+        type: String,
+    },
+    vehicle:{
+        type: String,
     }
 })
 
