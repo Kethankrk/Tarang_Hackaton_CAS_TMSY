@@ -50,7 +50,7 @@ const SignUp = () => {
         idProof: localIdProofe,
         userImage: localUserimage,
       };
-      const route = isGuide ? "guide" : "client";
+      const route = isGuide == true ? "guide" : "client";
 
       const res = await axios.post(
         `http://localhost:3000/${route}/signup`,
@@ -64,7 +64,7 @@ const SignUp = () => {
         console.log("saved user email to localstorage");
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.name);
     }
   };
 
