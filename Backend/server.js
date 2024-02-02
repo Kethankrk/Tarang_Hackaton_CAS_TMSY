@@ -113,7 +113,7 @@ app.post("/client/get-guide", async (req, res) => {
     }
     address = address.trim().toLowerCase();
 
-    const guides = await Guide.find({ address });
+    const guides = await Guide.find({ address, isAvailable: true });
 
     return res.status(200).json({
       status: "success",
