@@ -7,7 +7,7 @@ const guideRoute = require("./guide/pageRouter");
 const app = express();
 
 const corsOptions = {
-  origin: "*", 
+  origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // Enable credentials (e.g., cookies, authorization headers)truetatus: 204, // Respond with a 204 status for preflight requests
 };
@@ -110,7 +110,7 @@ app.post("/client/login", async (req, res) => {
   }
 });
 
-app.post("/client/get-guide", async (req, res) => {
+app.post("/client/guide-location", async (req, res) => {
   try {
     let { address } = req.body;
     if (!address) {
@@ -144,6 +144,26 @@ app.post("/client/get", async (req, res) => {
     return res.status(200).json({
       status: true,
       data: user,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: e.name });
+  }
+});
+
+app.post("/client/get-guide", async (req, res) => {
+  try {
+    const { email } = req.body;
+    const guide = await Guide.findOne({ email });
+    if (!guide) {
+      return res.status(404).json({
+        status: false,
+        error: "Guide Not found",
+      });
+    }
+    return res.status(200).json({
+      status: true,
+      data: guide,
     });
   } catch (error) {
     console.log(error);
