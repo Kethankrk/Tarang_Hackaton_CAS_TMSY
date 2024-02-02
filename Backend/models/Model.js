@@ -1,5 +1,26 @@
 const mongoose = require("mongoose");
 
+const vehicleSchema = new mongoose.Schema({
+    name:{
+        type: String
+    },
+    seat:{
+        type: Number
+    },
+    class:{
+        type: String
+    }
+})
+
+const requestSchema = new mongoose.Schema({
+    email:{
+        type: String,
+    },
+    vehicle:{
+        type: String,
+    }
+})
+
 const clientSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -64,27 +85,6 @@ const guideSchema = new mongoose.Schema({
     default: true,
   }
 });
-
-const vehicleSchema = new mongoose.Schema({
-    name:{
-        type: String
-    },
-    seat:{
-        type: Number
-    },
-    class:{
-        type: String
-    }
-})
-
-const requestSchema = new mongoose.Schema({
-    email:{
-        type: String,
-    },
-    vehicle:{
-        type: String,
-    }
-})
 
 const Client = mongoose.model("client", clientSchema);
 const Guide = mongoose.model("guide", guideSchema);
