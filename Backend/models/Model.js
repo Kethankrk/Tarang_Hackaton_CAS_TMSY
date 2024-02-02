@@ -1,25 +1,31 @@
 const mongoose = require("mongoose");
 
 const vehicleSchema = new mongoose.Schema({
-    name:{
-        type: String
-    },
-    seat:{
-        type: Number
-    },
-    class:{
-        type: String
-    }
-})
+  name: {
+    type: String,
+  },
+  seat: {
+    type: Number,
+  },
+  class: {
+    type: String,
+  },
+  image: {
+    type: String,
+  },
+});
 
 const requestSchema = new mongoose.Schema({
-    email:{
-        type: String,
-    },
-    vehicle:{
-        type: String,
-    }
-})
+  email: {
+    type: String,
+  },
+  vehicle: {
+    type: String,
+  },
+  destination: {
+    type: String,
+  }
+});
 
 const clientSchema = new mongoose.Schema({
   email: {
@@ -75,17 +81,17 @@ const guideSchema = new mongoose.Schema({
   vehicles: {
     type: [vehicleSchema],
   },
-  request:{
+  request: {
     type: [requestSchema],
   },
   idProof: {
     type: String,
-    required: true
+    required: true,
   },
-  isAvailable:{
+  isAvailable: {
     type: Boolean,
     default: true,
-  }
+  },
 });
 
 const Client = mongoose.model("client", clientSchema);
@@ -93,4 +99,4 @@ const Guide = mongoose.model("guide", guideSchema);
 module.exports = {
   Client,
   Guide,
-}
+};
