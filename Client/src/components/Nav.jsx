@@ -2,7 +2,7 @@ import React from 'react';
 
 const Nav = () => {
     return (
-        <header className="p-4 bg-gray-100 text-gray-800">
+        <header className="p-4 bg-slate-50 text-gray-800  shadow">
 	<div className="container flex justify-between h-16 mx-auto">
 		<div className="flex">
 			<a rel="noopener noreferrer" href="#" aria-label="Back to homepage" className="flex items-center p-2">
