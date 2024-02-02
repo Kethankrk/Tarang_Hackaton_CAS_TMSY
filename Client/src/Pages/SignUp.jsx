@@ -143,7 +143,7 @@ const SignUp = () => {
                     type="text"
                     name="Address"
                     id="Address"
-                    placeholder="************"
+                    placeholder="Enter your address here"
                     className="w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-50 text-gray-800"
                     required
                     value={address}

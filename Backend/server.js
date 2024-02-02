@@ -116,18 +116,18 @@ app.post("/client/login", async (req, res) => {
   }
 });
 
-app.post("/client/guide-location", async (req, res) => {
+app.get("/client/guide-location", async (req, res) => {
   try {
-    let { address } = req.body;
-    if (!address) {
-      return res.status(400).json({
-        status: false,
-        error: "address is missing",
-      });
-    }
-    address = address.trim().toLowerCase();
+    // let { address } = req.body;
+    // if (!address) {
+    //   return res.status(400).json({
+    //     status: false,
+    //     error: "address is missing",
+    //   });
+    // }
+    // address = address.trim().toLowerCase();
 
-    const guides = await Guide.find({ address, isAvailable: true });
+    const guides = await Guide.find({ isAvailable: true });
 
     return res.status(200).json({
       status: true,
@@ -179,9 +179,8 @@ app.post("/client/get-guide", async (req, res) => {
 
 app.get("/address", async (req, res) => {
   try {
-    const {address} = req.body;
     const guides = await Guide.find({});
-    const addresses = guides.filter((user) => user.address == address);
+    const addresses = guides.map((user) => user.address);
 
     return res.status(200).json({
       status: true,
