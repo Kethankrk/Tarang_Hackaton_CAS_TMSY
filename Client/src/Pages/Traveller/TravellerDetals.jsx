@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 const TravellerDetals = () => {
     const [SelectOption, Setselect] = useState()
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-      ];
-      console.log(SelectOption)
+
+
+    const [options, SetOPtions] = useState("");
+    useEffect(() => {
+        axios.get("http://localhost:3000/address").then(
+            res=>{
+                SetOPtions(res.data)
+            }
+        )
+       
+    }, []);
+      console.log(options)
     return (
         <div className='flex flex-col w-full gap-5'>
             <div className="flex bg-white rounded-3xl shadow-md px-9 py-3 justify-between items-center border-r-4 border-blue-500">

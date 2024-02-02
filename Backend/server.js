@@ -71,7 +71,7 @@ app.post("/client/signup", async (req, res) => {
     });
   } catch (e) {
     console.log(e);
-    return res.status(500).json({ error: error.name });
+    return res.status(500).json({ error: e.name });
   }
 });
 

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IKContext, IKUpload } from "imagekitio-react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [name, Setname] = useState("");
@@ -12,6 +13,7 @@ const SignUp = () => {
   const [password, setPass] = useState("");
   const [passconfo, Setpassconfo] = useState("");
   const [isGuide, setIsGuide] = useState(false);
+  const navigate = useNavigate()
 
   const uploadImageToImgBB = async (image) => {
     try {
@@ -40,6 +42,7 @@ const SignUp = () => {
       e.preventDefault();
       const localUserimage = await uploadImageToImgBB(userimage);
       const localIdProofe = await uploadImageToImgBB(idproff);
+   
 
       const userData = {
         name: name,
@@ -50,21 +53,23 @@ const SignUp = () => {
         idProof: localIdProofe,
         userImage: localUserimage,
       };
-      const route = isGuide == true ? "guide" : "client";
+      console.log(isGuide)
+      const route = isGuide ? "guide" : "client";
 
       const res = await axios.post(
         `http://localhost:3000/${route}/signup`,
         userData
       );
       if (res.status == 200) {
-        localStorage.getItem("email", email);
-        localStorage.getItem("name", name);
+        localStorage.setItem("email", email);
+        localStorage.setItem("name", name);
         const type = isGuide ? "guide" : "client";
-        localStorage.getItem("type", type);
+        localStorage.setItem("type", type);
         console.log("saved user email to localstorage");
+        navigate("/")
       }
     } catch (error) {
-      console.log(error.name);
+      console.log(error);
     }
   };
 
@@ -225,7 +230,7 @@ const SignUp = () => {
             </label>
             <input
               type="checkbox"
-              onChange={(e) => setIsGuide(e.target.value)}
+              onChange={(e) => setIsGuide(e.target.checked)}
               value={isGuide}
             />
           </div>
