@@ -7,10 +7,9 @@ const guideRoute = require("./guide/pageRouter");
 const app = express();
 
 const corsOptions = {
-  origin: '*', // Replace with your front-end URL or use '*' for any origin
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true, // Enable credentials (e.g., cookies, authorization headers)
-  optionsSuccessStatus: 204, // Respond with a 204 status for preflight requests
+  origin: "*", 
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Enable credentials (e.g., cookies, authorization headers)truetatus: 204, // Respond with a 204 status for preflight requests
 };
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -28,7 +27,7 @@ app.get("/", (req, res) => {
   res.send({ message: "hello world" });
 });
 
-app.post("/client/singup", async (req, res) => {
+app.post("/client/signup", async (req, res) => {
   try {
     console.log(req.body);
     let { email, name, password, userImage, address, phone, idProof } =
@@ -43,7 +42,7 @@ app.post("/client/singup", async (req, res) => {
       !name
     ) {
       return res.status(400).send({
-        status: "failure",
+        status: false,
         error: "Some fields are empty",
       });
     }
@@ -51,7 +50,7 @@ app.post("/client/singup", async (req, res) => {
     let existingUser = await Client.findOne({ email });
     if (existingUser) {
       return res.status(400).json({
-        status: "failure",
+        status: false,
         error: "User with this email already exists.",
       });
     }
@@ -68,7 +67,7 @@ app.post("/client/singup", async (req, res) => {
 
     await newClient.save();
     return res.status(200).json({
-      status: "success",
+      status: true,
     });
   } catch (e) {
     console.log(e);
@@ -81,7 +80,7 @@ app.post("/client/login", async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
       return res.status(400).send({
-        status: "failure",
+        status: false,
         error: "Some fields are empty",
       });
     }
@@ -90,20 +89,20 @@ app.post("/client/login", async (req, res) => {
 
     if (!user) {
       return res.status(404).json({
-        status: "failure",
+        status: false,
         error: "User Not found",
       });
     }
 
     if (password != user.password) {
       return res.status(400).json({
-        status: "failure",
+        status: false,
         error: "Incorrect password",
       });
     }
 
     return res.status(200).json({
-      status: "success",
+      status: true,
     });
   } catch (e) {
     console.log(e);
@@ -116,7 +115,7 @@ app.post("/client/get-guide", async (req, res) => {
     let { address } = req.body;
     if (!address) {
       return res.status(400).json({
-        status: "failure",
+        status: false,
         error: "address is missing",
       });
     }
@@ -125,8 +124,8 @@ app.post("/client/get-guide", async (req, res) => {
     const guides = await Guide.find({ address, isAvailable: true });
 
     return res.status(200).json({
-      status: "success",
-      guides,
+      status: true,
+      data: guides,
     });
   } catch (error) {
     console.log(error);
@@ -134,4 +133,21 @@ app.post("/client/get-guide", async (req, res) => {
   }
 });
 
+app.post("/client/get", async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await Client.find({ email });
+    if (!user) {
+      console.log("user not found");
+      return res.status(404).json({ status: false });
+    }
+    return res.status(200).json({
+      status: true,
+      data: user,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: e.name });
+  }
+});
 app.listen(3000, () => console.log("Running server on http://localhost:3000"));
