@@ -6,6 +6,7 @@ import InduvidualGuide from './Traveller/InduvidualGuide';
 import Details from './Traveller/TravellerDetails';
 import TravellerDetals from './Traveller/TravellerDetals';
 import GuideDetails from './LocalGuide/guideDetails';
+import TravellerReqest from './LocalGuide/TravellerReqest';
 
 const Layout = () => {
     const[ isValid, Setvalid] =useState(null)
@@ -22,13 +23,13 @@ const Layout = () => {
             (
                 <div className="grid grid-cols-9 w-full">
                 <div className="col-span-4 h-screen bg-gray-200 p-4">
-                {/* <Details/> */}
-                {/* <TravellerDetals/> */}
                 <GuideDetails/>
                 </div>
                 <div className="col-span-5 p-4">
                    {/* <LocalGuideView/> */}
-                   <InduvidualGuide/>
+                <TravellerReqest/>
+
+                   {/* <InduvidualGuide/> */}
                     {/* <Outlet/> */}
                 </div>
               </div>

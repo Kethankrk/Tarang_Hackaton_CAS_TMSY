@@ -81,7 +81,7 @@ router.post("/set-vehicle", async (req, res) => {
   return res.status(200).json({ status: true, guide });
 });
 
-router.post("add-req", async (req, res) => {
+router.post("/add-req", async (req, res) => {
   try {
     const { clientEmail, guideEmail, destination, vehicle } = req.body;
     const guide = await Guide.findById(guideId);
@@ -108,7 +108,7 @@ router.post("add-req", async (req, res) => {
   }
 });
 
-router.post("get-req", async (req, res) => {
+router.post("/get-req", async (req, res) => {
   try {
     const { email } = req.body;
     const guide = await Guide.findOne({ email });
